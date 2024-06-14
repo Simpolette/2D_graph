@@ -40,15 +40,23 @@ void drawAxis(){
     cout << "v";
 }
 
-void drawGraph(string Function){
-    int x = X_CENTER * -1;
+double calWeight(int y1, int y2){
+    double distance = abs(y2 - y1);
+    return 1 / getXPowerY(10, distance);
+}
 
-    for (int i = x; i < X_CENTER; i++){
-        int y = calFunction(Function, i);
+void drawGraph(string Function){
+    // Calculate for the case x is not in the function
+
+    int x_start = X_CENTER * -1;
+    double weight = calWeight(0, calFunction(Function, 1));
+
+    for (double x = x_start; x < X_CENTER; x += weight){
+        int y = calFunction(Function, x);
         if (y < Y_CENTER && y > Y_CENTER * -1){
             // Check if Y can fit in the console or not
             
-            gotoxy(X_CENTER + i, Y_CENTER - y);
+            gotoxy(X_CENTER + x, Y_CENTER - y);
             cout << "*";
         }
     }

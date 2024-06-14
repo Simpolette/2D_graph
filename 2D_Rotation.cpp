@@ -11,7 +11,7 @@ int main(){
     getline(cin, Function);
     system("cls");
     while(1){
-            drawAxis();
+        drawAxis();
         drawGraph(Function);
     }
     return 0;

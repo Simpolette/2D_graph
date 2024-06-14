@@ -6,5 +6,6 @@ const int CONSOLE_HEIGHT = 55;
 const int X_CENTER = CONSOLE_WIDTH / 2;
 const int Y_CENTER = CONSOLE_HEIGHT / 2;
 
+double calWeight(int y1, int y2);
 void drawAxis();
 void drawGraph(string Function);

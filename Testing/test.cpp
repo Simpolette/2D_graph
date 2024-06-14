@@ -6,10 +6,10 @@
 
 using namespace std;
 
-int calPriorityAddSub(vector <string> convertedFunction, int& curPosition, int x);
+double calPriorityAddSub(vector <string> convertedFunction, int& curPosition, double x);
 
-int getXPowerY(int x, int y){
-    int res = 1;
+double getXPowerY(double x, int y){
+    double res = 1;
 
     if (y == 0) return res;
 
@@ -70,8 +70,8 @@ vector <string> functionConverter(string Function){
     return Converter;
 }
 
-int calPriorityPara(vector <string> convertedFunction, int& curPosition, int x){
-    int res = 0;
+double calPriorityPara(vector <string> convertedFunction, int& curPosition, double x){
+    double res = 0;
 
     if (convertedFunction[curPosition] == "("){
         curPosition++;
@@ -84,15 +84,15 @@ int calPriorityPara(vector <string> convertedFunction, int& curPosition, int x){
             res += x;
         }
         else if (convertedFunction[curPosition] != ""){
-            res = stoi(convertedFunction[curPosition]);
+            res = stod(convertedFunction[curPosition]);
         }
         curPosition++;
         return res;
     }
 }
 
-int calPriorityPower(vector <string> convertedFunction, int& curPosition, int x){
-    int res = calPriorityPara(convertedFunction, curPosition, x);
+double calPriorityPower(vector <string> convertedFunction, int& curPosition, double x){
+    double res = calPriorityPara(convertedFunction, curPosition, x);
 
     if (convertedFunction[curPosition] == "^"){
         curPosition++;
@@ -102,8 +102,8 @@ int calPriorityPower(vector <string> convertedFunction, int& curPosition, int x)
     return res;
 }
 
-int calPriorityMulDiv(vector <string> convertedFunction, int& curPosition, int x){
-    int res = calPriorityPower(convertedFunction, curPosition, x);
+double calPriorityMulDiv(vector <string> convertedFunction, int& curPosition, double x){
+    double res = calPriorityPower(convertedFunction, curPosition, x);
 
     if (convertedFunction[curPosition] == "*"){
         curPosition++;
@@ -117,8 +117,8 @@ int calPriorityMulDiv(vector <string> convertedFunction, int& curPosition, int x
     return res;
 }
 
-int calPriorityAddSub(vector <string> convertedFunction, int& curPosition, int x){
-    int res = calPriorityMulDiv(convertedFunction, curPosition, x);
+double calPriorityAddSub(vector <string> convertedFunction, int& curPosition, double x){
+    double res = calPriorityMulDiv(convertedFunction, curPosition, x);
 
     if (convertedFunction[curPosition] == "+"){
         curPosition++;
@@ -132,18 +132,19 @@ int calPriorityAddSub(vector <string> convertedFunction, int& curPosition, int x
     return res;
 }
 
-int calFunction(string Function, int x){
+int calFunction(string Function, double x){
     vector <string> convertedFunction = functionConverter(Function);
     int curPosition = 0;
 
-    return calPriorityAddSub(convertedFunction, curPosition, x);
+    return (int)calPriorityAddSub(convertedFunction, curPosition, x);
 }
 
 int main(){
     SetConsoleDisplayMode(GetStdHandle(STD_OUTPUT_HANDLE),CONSOLE_FULLSCREEN_MODE,0);
     string s;
     getline(cin, s);
-    int x = -50;
+    double x;
+    cin >> x;
     cout << calFunction(s, x) << endl;
     return 0;
 }
